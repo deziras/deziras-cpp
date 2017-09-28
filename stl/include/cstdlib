@@ -1,0 +1,63 @@
+//
+// Created by Glavo on 17-9-29.
+//
+
+#ifndef DEZIRAS_CSTDLIB_H
+#define DEZIRAS_CSTDLIB_H
+
+#include <stdlib.h>
+
+namespace std {
+    using ::div_t;
+    using ::ldiv_t;
+    using ::lldiv_t;
+    using ::size_t;
+
+    using ::abort;
+    using ::exit;
+    using ::quick_exit;
+    using ::_Exit;
+    using ::atexit;
+    using ::at_quick_exit;
+    using ::system;
+    using ::getenv;
+
+    using ::malloc;
+    using ::calloc;
+    using ::realloc;
+    using ::free;
+    using ::alloca;
+
+    using ::atof;
+    using ::atoi
+    using ::atol;
+    using ::atoll;
+    using ::strtol;
+    using ::strtoll;
+    using ::strtoul;
+    using ::strtoull;
+    using ::strtof;
+    using ::strtod;
+    using ::strtold;
+
+    using ::mblen;
+    using ::mbtowc;
+    using ::wctomb;
+    using ::mbstowcs;
+    using ::wcstombs;
+
+    using ::rand;
+    using ::srand;
+    using ::qsort;
+    using ::bsearch;
+    using ::abs;
+    using ::labs;
+    using ::llabs;
+
+    using ::div;
+    using ::ldiv;
+    using ::lldiv;
+
+}
+
+#endif //DEZIRAS_CSTDLIB_H

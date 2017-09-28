@@ -1,0 +1,54 @@
+//
+// Created by Glavo on 17-9-29.
+//
+
+#ifndef DEZIRAS_INITIALIZER_LIST_H
+#define DEZIRAS_INITIALIZER_LIST_H
+
+#include <cstddef>
+
+namespace std {
+    template<class E>
+    class initializer_list {
+    public:
+        using value_type = E;
+        using reference = const E &;
+        using const_reference = const E &;
+        using size_type = size_t;
+        using iterator =  E const *;
+        using const_iterator =  E const *;
+
+    private:
+        iterator array;
+        size_type length;
+
+        constexpr initializer_list(const_iterator cit, size_type len) : array(cit), length(len) {}
+
+    public:
+        constexpr initializer_list() noexcept : array(nullptr), length(0) {}
+
+        constexpr size_t size() const noexcept {
+            return length;
+        }
+
+        constexpr const_iterator begin() const noexcept {
+            return array;
+        }
+
+        constexpr const_iterator end() const noexcept {
+            return array + size();
+        }
+    };
+
+    template<class E>
+    constexpr E const *begin(initializer_list<E> il) noexcept {
+        return il.begin();
+    }
+
+    template<class E>
+    constexpr E const *end(initializer_list<E> il) noexcept {
+        return il.end();
+    }
+}
+
+#endif //DEZIRAS_INITIALIZER_LIST_H
