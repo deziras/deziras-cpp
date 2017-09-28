@@ -1,0 +1,55 @@
+//
+// Created by Glavo on 17-9-29.
+//
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "NotImplementedFunctions"
+#ifndef DEZIRAS_EXCEPTION_H
+#define DEZIRAS_EXCEPTION_H
+
+namespace std {
+    class exception {
+    public:
+        exception() noexcept {}
+
+        exception(exception const &) = default;
+
+        virtual ~exception() noexcept = default;
+
+        virtual char const *what() const noexcept;
+    };
+
+    class bad_exception : public exception {
+    public:
+        bad_exception() noexcept {}
+
+        virtual ~bad_exception() noexcept = default;
+
+        virtual char const *what() const noexcept;
+    };
+
+    class nested_exception;
+
+    using unexpected_handler =  void (*)();
+
+    unexpected_handler get_unexpected() noexcept;
+
+    unexpected_handler set_unexpected(unexpected_handler f) noexcept;
+
+    void unexpected();
+
+    using terminate_handler =  void (*)();
+
+    terminate_handler get_terminate() noexcept;
+
+    terminate_handler set_terminate(terminate_handler f) noexcept;
+
+    void terminate() noexcept;
+
+    bool uncaught_exception() noexcept;
+
+}
+
+#endif //DEZIRAS_EXCEPTION_H
+
+#pragma clang diagnostic pop

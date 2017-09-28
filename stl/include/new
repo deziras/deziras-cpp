@@ -1,0 +1,58 @@
+//
+// Created by Glavo on 17-9-29.
+//
+
+#ifndef DEZIRAS_NEW_H
+#define DEZIRAS_NEW_H
+
+#include <exception>
+#include <cstddef>
+
+namespace std {
+    class bad_alloc : public exception {
+    public:
+        bad_alloc() throw() {}
+
+        virtual ~bad_alloc() throw() = default;
+
+        virtual char const *what() const throw();
+    };
+
+    class bad_array_new_length : public bad_alloc {
+    public:
+        bad_array_new_length() throw() {};
+
+        virtual ~bad_array_new_length() throw() = default;
+
+        virtual char const *what() const throw();
+    };
+
+    struct nothrow_t {
+        explicit nothrow_t() = default;
+    };
+
+    extern const nothrow_t nothrow;
+
+    using new_handler = void (*)();
+
+}
+
+extern void *operator new(size_t);
+
+extern void *operator new[](size_t);
+
+extern void operator delete(void *);
+
+extern void operator delete[](void *);
+
+
+extern void *operator new(size_t, std::nothrow_t &) noexcept;
+
+extern void *operator new[](size_t, std::nothrow_t &) noexcept;
+
+extern void operator delete(void *, std::nothrow_t &) noexcept;
+
+extern void operator delete[](void *, std::nothrow_t &) noexcept;
+
+#endif //DEZIRAS_NEW_H
+
