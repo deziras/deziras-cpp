@@ -2,22 +2,187 @@
 // Created by Glavo on 17-9-28.
 //
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef DEZIRAS_CMATH_H
 #define DEZIRAS_CMATH_H
 
 #include <math.h>
 
+template<typename T>
+inline int __fpclassify(T f) {
+    return fpclassify(f);
+}
+
+template<typename T>
+inline int __isfinite(T f) {
+    return isfinite(f);
+}
+
+template<typename T>
+inline bool __isinf(T f) {
+    return static_cast<bool>(isinf(f));
+}
+
+template<typename T>
+inline bool __isnan(T f) {
+    return static_cast<bool>(isnan(f));
+}
+
+template<typename T>
+inline bool __isnormal(T f) {
+    return static_cast<bool>(isnormal(f));
+}
+
+template<typename T>
+inline bool __signbit(T f) {
+    return static_cast<bool>(signbit(f));
+}
+
+#undef fpclassify
+#undef isfinite
+#undef isinf
+#undef isnan
+#undef isnormal
+#undef signbit
+
 namespace std {
-    inline auto abs(float f) -> float {
+    using ::float_t;
+    using ::double_t;
+
+    inline int fpclassify(float f) {
+        return ::__fpclassify<float>(f);
+    }
+
+    inline int fpclassify(double d) {
+        return ::__fpclassify<double>(d);
+    }
+
+    inline int fpclassify(long double ld) {
+        return ::__fpclassify<long double>(ld);
+    }
+
+    template<typename Integral>
+    inline int fpclassify(Integral i) {
+        return ::__fpclassify<double>(static_cast<double >(i));
+    }
+
+
+    inline int isfinite(float f) {
+        return ::__isfinite<float>(f);
+    }
+
+    inline int isfinite(double d) {
+        return ::__isfinite<double>(d);
+    }
+
+    inline int isfinite(long double ld) {
+        return ::__isfinite<long double>(ld);
+    }
+
+    template<typename Integral>
+    inline int isfinite(Integral i) {
+        return ::__isfinite<double>(static_cast<double>(i));
+    }
+
+
+    inline bool isinf(float f) {
+        return ::__isinf<float>(f);
+    }
+
+    inline bool isinf(double d) {
+        return ::__isinf<double>(d);
+    }
+
+    inline bool isinf(long double ld) {
+        return ::__isinf<long double>(ld);
+    }
+
+    template<typename Integral>
+    inline bool isinf(Integral i) {
+        return ::__isinf<double>(static_cast<double>(i));
+    }
+
+
+    inline bool isnan(float f) {
+        return ::__isnan<float>(f);
+    }
+
+    inline bool isnan(double d) {
+        return ::__isnan<double>(d);
+    }
+
+    inline bool isnan(long double ld) {
+        return ::__isnan<long double>(ld);
+    }
+
+    template<typename Integral>
+    inline bool isnan(Integral i) {
+        return ::__isnan<double>(static_cast<double>(i));
+    }
+
+
+    inline bool isnormal(float f) {
+        return ::__isnormal<float>(f);
+    }
+
+    inline bool isnormal(double d) {
+        return ::__isnormal<double>(d);
+    }
+
+    inline bool isnormal(long double ld) {
+        return ::__isnormal<long double>(ld);
+    }
+
+    template<typename Integral>
+    inline bool isnormal(Integral i) {
+        return ::__isnormal<double>(static_cast<double>(i));
+    }
+
+
+    inline bool signbit(float f) {
+        return ::__signbit<float>(f);
+    }
+
+    inline bool signbit(double d) {
+        return ::__signbit<double>(d);
+    }
+
+    inline bool signbit(long double ld) {
+        return ::__signbit<long double>(ld);
+    }
+
+    template<typename Integral>
+    inline bool signbit(Integral i) {
+        return ::__signbit<double>(static_cast<double>(i));
+    }
+
+    inline float abs(float f) {
         return ::fabsf(f);
     }
 
-    inline auto abs(double d) -> double {
+    inline double abs(double d) {
         return ::fabs(d);
     }
 
+    inline long double abs(long double ld) {
+        return ::fabsl(ld);
+    }
 
-    //TODO
+
+    inline double sin(double d) {
+        return ::sin(d);
+    }
+
+    inline float sin(float f) {
+        return ::sinf(f);
+    }
+
+    inline long double sin(long double ld) {
+        return ::sinl(ld);
+    }
 }
 
 #endif //DEZIRAS_CMATH_H
+
+#pragma clang diagnostic pop

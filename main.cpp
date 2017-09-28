@@ -3,8 +3,9 @@
 //
 
 #include <cmath>
+#include <stdio.h>
 
 int main() {
-    std::sin(20.0);
+    printf("%d", std::isinf(INFINITY));
 }
 
