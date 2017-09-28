@@ -1,0 +1,22 @@
+//
+// Created by Glavo on 17-9-28.
+//
+
+#ifndef DEZIRAS_CMATH_H
+#define DEZIRAS_CMATH_H
+
+#include <math.h>
+
+namespace std {
+    using ::fabs;
+    using ::fabsf;
+    using ::fabsl;
+
+    using ::fmod;
+    using ::fmodf;
+    using ::fmodl;
+
+    using ::sin;
+}
+
+#endif //DEZIRAS_CMATH_H
