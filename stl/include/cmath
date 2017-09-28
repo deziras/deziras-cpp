@@ -11,6 +11,13 @@ namespace std {
     inline auto abs(float f) -> float {
         return ::fabsf(f);
     }
+
+    inline auto abs(double d) -> double {
+        return ::fabs(d);
+    }
+
+
+    //TODO
 }
 
 #endif //DEZIRAS_CMATH_H

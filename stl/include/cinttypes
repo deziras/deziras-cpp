@@ -11,7 +11,14 @@
 namespace std {
     using ::imaxdiv_t;
 
+    using ::imaxabs;
+    using ::imaxdiv;
 
+    using ::strtoimax;
+    using ::strtoumax;
+
+    using ::wcstoimax;
+    using ::wcstoumax;
 }
 
 #endif //DEZIRAS_CINTTYPES_H
