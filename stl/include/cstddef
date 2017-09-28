@@ -12,6 +12,10 @@ namespace std {
     using ::size_t ;
     using ::max_align_t ;
     using nullptr_t = decltype(nullptr);
+
+    enum class byte : unsigned char {} ;
+
+
 }
 
 #endif //DEZIRAS_CSTDDEF_H
