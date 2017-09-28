@@ -1,0 +1,17 @@
+//
+// Created by Glavo on 17-9-29.
+//
+
+#ifndef DEZIRAS_CSTDDEF_H
+#define DEZIRAS_CSTDDEF_H
+
+#include <stddef.h>
+
+namespace std {
+    using ::ptrdiff_t ;
+    using ::size_t ;
+    using ::max_align_t ;
+    using nullptr_t = decltype(nullptr);
+}
+
+#endif //DEZIRAS_CSTDDEF_H

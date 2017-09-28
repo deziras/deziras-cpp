@@ -8,15 +8,9 @@
 #include <math.h>
 
 namespace std {
-    using ::fabs;
-    using ::fabsf;
-    using ::fabsl;
-
-    using ::fmod;
-    using ::fmodf;
-    using ::fmodl;
-
-    using ::sin;
+    inline auto abs(float f) -> float {
+        return ::fabsf(f);
+    }
 }
 
 #endif //DEZIRAS_CMATH_H

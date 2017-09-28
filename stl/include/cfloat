@@ -1,0 +1,10 @@
+//
+// Created by Glavo on 17-9-29.
+//
+
+#ifndef DEZIRAS_CFLOAT_H
+#define DEZIRAS_CFLOAT_H
+
+#include <float.h>
+
+#endif //DEZIRAS_CFLOAT_H

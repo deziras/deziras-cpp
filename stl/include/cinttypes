@@ -1,0 +1,17 @@
+//
+// Created by Glavo on 17-9-29.
+//
+
+#ifndef DEZIRAS_CINTTYPES_H
+#define DEZIRAS_CINTTYPES_H
+
+#include <inttypes.h>
+#include <cstdint>
+
+namespace std {
+    using ::imaxdiv_t;
+
+
+}
+
+#endif //DEZIRAS_CINTTYPES_H
