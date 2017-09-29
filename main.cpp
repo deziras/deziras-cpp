@@ -2,21 +2,27 @@
 // Created by Glavo on 17-9-29.
 //
 
-#include <cmath>
+#include<cmath>
 #include <stdlib.h>
 #include <initializer_list>
-#include <stdio.h>
-#include <new>
+#include <cstdio>
+#include <exception>
 
 class C {
+    char const *data;
 public:
-    ~C() {
-        printf("delete!");
+    C(std::initializer_list<char> il) {
+        auto *c = (char *) malloc(sizeof(char) * il.size());
+        data = c;
+
+        for (auto ch : il) {
+            *c++ = ch;
+        }
     }
+
 };
 
 int main() {
-    auto p = new (std::nothrow) C;
-    delete p;
+    throw std::exception();
 }
 

@@ -7,6 +7,8 @@
 #ifndef DEZIRAS_EXCEPTION_H
 #define DEZIRAS_EXCEPTION_H
 
+#include <cstdlib>
+
 namespace std {
     class exception {
     public:
@@ -49,28 +51,10 @@ namespace std {
 
     [[noreturn]] void terminate() noexcept;
 
+    int uncaught_exceptions() noexcept;
 
     bool uncaught_exception() noexcept;
 
-    class exception_ptr {
-
-    };
-
-
-    class nested_exception {
-    public:
-        nested_exception() noexcept;
-
-        nested_exception(const nested_exception &) noexcept = default;
-
-        nested_exception &operator=(const nested_exception &) noexcept = default;
-
-        virtual ~nested_exception() = default;
-
-        void rethrow_nested() const;
-
-        exception_ptr nested_ptr() const noexcept;
-    };
 }
 
 #endif //DEZIRAS_EXCEPTION_H
