@@ -1,0 +1,16 @@
+//
+// Created by Glavo on 17-9-29.
+//
+
+#ifndef DEZIRAS_TYPEINFO_H
+#define DEZIRAS_TYPEINFO_H
+
+#include <cstddef>
+
+namespace std {
+    class type_info {
+
+    };
+}
+
+#endif //DEZIRAS_TYPEINFO_H

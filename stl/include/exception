@@ -1,53 +1,76 @@
 //
-// Created by Glavo on 17-9-29.
+// Created by Glavo on 17-9-30.
 //
 
 #pragma clang diagnostic push
-#pragma ide diagnostic ignored "NotImplementedFunctions"
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef DEZIRAS_EXCEPTION_H
 #define DEZIRAS_EXCEPTION_H
 
 namespace std {
     class exception {
     public:
-        exception() noexcept {}
+        exception() noexcept = default;
 
-        exception(exception const &) = default;
+        exception(exception const &) noexcept = default;
 
-        virtual ~exception() noexcept = default;
+        exception &operator=(exception const &) noexcept = default;
+
+        virtual ~exception() = default;
 
         virtual char const *what() const noexcept;
     };
 
     class bad_exception : public exception {
     public:
-        bad_exception() noexcept {}
+        bad_exception() noexcept = default;
 
-        virtual ~bad_exception() noexcept = default;
+        bad_exception(bad_exception const &) noexcept = default;
 
-        virtual char const *what() const noexcept;
+        bad_exception &operator=(bad_exception const &) noexcept = default;
+
+        virtual char const *what() const noexcept override;
     };
 
-    class nested_exception;
-
-    using unexpected_handler =  void (*)();
+    using unexpected_handler = void (*)();
 
     unexpected_handler get_unexpected() noexcept;
 
     unexpected_handler set_unexpected(unexpected_handler f) noexcept;
 
-    void unexpected();
+    [[noreturn]] void unexpected();
 
-    using terminate_handler =  void (*)();
+
+    using terminate_handler  = void (*)();
 
     terminate_handler get_terminate() noexcept;
 
     terminate_handler set_terminate(terminate_handler f) noexcept;
 
-    void terminate() noexcept;
+    [[noreturn]] void terminate() noexcept;
+
 
     bool uncaught_exception() noexcept;
 
+    class exception_ptr {
+
+    };
+
+
+    class nested_exception {
+    public:
+        nested_exception() noexcept;
+
+        nested_exception(const nested_exception &) noexcept = default;
+
+        nested_exception &operator=(const nested_exception &) noexcept = default;
+
+        virtual ~nested_exception() = default;
+
+        void rethrow_nested() const;
+
+        exception_ptr nested_ptr() const noexcept;
+    };
 }
 
 #endif //DEZIRAS_EXCEPTION_H

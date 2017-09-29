@@ -9,25 +9,19 @@ using namespace std;
 
 extern const nothrow_t nothrow;
 
-char const *bad_alloc::what() const noexcept {
-    return "std::bad_alloc";
-}
-
-char const *bad_array_new_length::what() const noexcept {
-    return "std::bad_array_new_length";
-}
-
 void *operator new(size_t size) {
     void *ptr = malloc(size);
-    if (ptr == nullptr)
-        throw bad_exception{};
+    if (ptr == nullptr) {
+        //  throw bad_exception{};
+    }
     return ptr;
 }
 
 void *operator new[](size_t size) {
     void *ptr = malloc(size);
-    if (ptr == nullptr)
-        throw bad_exception{};
+    if (ptr == nullptr) {
+        //    throw bad_exception{};
+    }
     return ptr;
 }
 
