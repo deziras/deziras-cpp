@@ -6,8 +6,20 @@
 #define DEZIRAS_NEW_H
 
 #include <cstddef>
+#include <exception>
 
 namespace std {
+    class bad_alloc : public exception {
+    public:
+        bad_alloc() noexcept = default;
+
+        bad_alloc(bad_alloc const &) noexcept = default;
+
+        virtual char const *what() const noexcept override {
+            return "std::bad_alloc";
+        }
+    };
+
     struct nothrow_t {
         explicit nothrow_t() = default;
     };
@@ -18,22 +30,22 @@ namespace std {
 
 }
 
-extern void *operator new(size_t);
+void *operator new(size_t);
 
-extern void *operator new[](size_t);
+void *operator new[](size_t);
 
-extern void operator delete(void *);
+void operator delete(void *);
 
-extern void operator delete[](void *);
+void operator delete[](void *);
 
 
-extern void *operator new(size_t, std::nothrow_t &) noexcept;
+void *operator new(size_t, std::nothrow_t &) noexcept;
 
-extern void *operator new[](size_t, std::nothrow_t &) noexcept;
+void *operator new[](size_t, std::nothrow_t &) noexcept;
 
-extern void operator delete(void *, std::nothrow_t &) noexcept;
+void operator delete(void *, std::nothrow_t &) noexcept;
 
-extern void operator delete[](void *, std::nothrow_t &) noexcept;
+void operator delete[](void *, std::nothrow_t &) noexcept;
 
 #endif //DEZIRAS_NEW_H
 

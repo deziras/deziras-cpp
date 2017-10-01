@@ -20,7 +20,9 @@ namespace std {
 
         virtual ~exception() = default;
 
-        virtual char const *what() const noexcept;
+        virtual char const *what() const noexcept {
+            return "std::exception";
+        }
     };
 
     class bad_exception : public exception {
@@ -31,7 +33,9 @@ namespace std {
 
         bad_exception &operator=(bad_exception const &) noexcept = default;
 
-        virtual char const *what() const noexcept override;
+        virtual char const *what() const noexcept override {
+            return "std::bad_exception";
+        }
     };
 
     using unexpected_handler = void (*)();
