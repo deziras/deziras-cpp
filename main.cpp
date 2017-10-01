@@ -23,6 +23,9 @@ public:
 };
 
 int main() {
+    auto x = {1, 2, 3};
+    auto b = C{'a', 'b', 'c'};
+
     throw std::exception();
 }
 

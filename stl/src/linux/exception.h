@@ -1,6 +1,5 @@
-//
-// Created by Glavo on 17-9-30.
-//
+#pragma once
+
 #include <cstdlib>
 
 #pragma clang diagnostic push
@@ -14,6 +13,15 @@ void *__cxa_allocate_exception(size_t thrown_size) noexcept {
 extern "C"
 void __cxa_free_exception(void *thrown_exception) noexcept {
     free(thrown_exception);
+}
+
+extern "C"
+void __cxa_throw(
+        void *thrown_exception,
+        struct type_info *tinfo,
+        void (*dest)(void *)) {
+    printf("throw\n");
+    exit(0);
 }
 
 

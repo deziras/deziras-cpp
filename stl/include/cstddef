@@ -1,10 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_CSTDDEF_H
-#define DEZIRAS_CSTDDEF_H
-
+#pragma once
 #include <stddef.h>
 
 namespace std {
@@ -18,4 +12,3 @@ namespace std {
 
 }
 
-#endif //DEZIRAS_CSTDDEF_H

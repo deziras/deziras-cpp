@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_CSTDLIB_H
-#define DEZIRAS_CSTDLIB_H
+#pragma once
 
 #include <stdlib.h>
 namespace std {
@@ -59,5 +54,3 @@ namespace std {
 
 
 }
-
-#endif //DEZIRAS_CSTDLIB_H

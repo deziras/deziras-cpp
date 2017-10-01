@@ -5,6 +5,8 @@
 #include <new>
 #include <cstdlib>
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "ClangTidyInspection"
 using namespace std;
 
 extern const nothrow_t nothrow;
@@ -49,3 +51,5 @@ void operator delete(void *p, nothrow_t &) noexcept {
 void operator delete[](void *p, nothrow_t &) noexcept {
     free(p);
 }
+
+#pragma clang diagnostic pop

@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_CSTDINT_H
-#define DEZIRAS_CSTDINT_H
+#pragma once
 
 #include <stdint.h>
 
@@ -45,4 +40,3 @@ namespace std {
     using ::uintptr_t;
 }
 
-#endif //DEZIRAS_CSTDINT_H

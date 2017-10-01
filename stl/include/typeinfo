@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_TYPEINFO_H
-#define DEZIRAS_TYPEINFO_H
+#pragma once
 
 #include <cstddef>
 
@@ -13,4 +8,3 @@ namespace std {
     };
 }
 
-#endif //DEZIRAS_TYPEINFO_H

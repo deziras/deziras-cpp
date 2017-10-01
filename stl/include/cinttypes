@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_CINTTYPES_H
-#define DEZIRAS_CINTTYPES_H
+#pragma once
 
 #include <inttypes.h>
 #include <cstdint>
@@ -21,4 +16,3 @@ namespace std {
     using ::wcstoumax;
 }
 
-#endif //DEZIRAS_CINTTYPES_H

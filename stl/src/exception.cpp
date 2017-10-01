@@ -8,7 +8,7 @@
 
 #ifdef __GNUC__
 
-#include "linux/exception.tcc"
+#include "linux/exception.h"
 
 #endif
 

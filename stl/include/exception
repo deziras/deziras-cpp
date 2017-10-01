@@ -1,11 +1,4 @@
-//
-// Created by Glavo on 17-9-30.
-//
-
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
-#ifndef DEZIRAS_EXCEPTION_H
-#define DEZIRAS_EXCEPTION_H
+#pragma once
 
 #include <cstdlib>
 
@@ -60,7 +53,3 @@ namespace std {
     bool uncaught_exception() noexcept;
 
 }
-
-#endif //DEZIRAS_EXCEPTION_H
-
-#pragma clang diagnostic pop

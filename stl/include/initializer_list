@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_INITIALIZER_LIST_H
-#define DEZIRAS_INITIALIZER_LIST_H
+#pragma once
 
 #include <cstddef>
 
@@ -51,4 +46,3 @@ namespace std {
     }
 }
 
-#endif //DEZIRAS_INITIALIZER_LIST_H

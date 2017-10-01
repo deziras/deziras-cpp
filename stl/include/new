@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_NEW_H
-#define DEZIRAS_NEW_H
+#pragma once
 
 #include <cstddef>
 #include <exception>
@@ -47,5 +42,4 @@ void operator delete(void *, std::nothrow_t &) noexcept;
 
 void operator delete[](void *, std::nothrow_t &) noexcept;
 
-#endif //DEZIRAS_NEW_H
 

@@ -1,11 +1,4 @@
-//
-// Created by Glavo on 17-9-28.
-//
-
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
-#ifndef DEZIRAS_CMATH_H
-#define DEZIRAS_CMATH_H
+#pragma once
 
 #include <math.h>
 
@@ -182,7 +175,3 @@ namespace std {
         return ::sinl(ld);
     }
 }
-
-#endif //DEZIRAS_CMATH_H
-
-#pragma clang diagnostic pop

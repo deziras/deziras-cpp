@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-30.
-//
-
-#ifndef DEZIRAS_CSTDIO_H
-#define DEZIRAS_CSTDIO_H
+#pragma once
 
 #include <stdio.h>
 
@@ -64,4 +59,3 @@ namespace std {
     using ::tmpnam;
 }
 
-#endif //DEZIRAS_CSTDIO_H

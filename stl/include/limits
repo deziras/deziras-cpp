@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_CLIMITS_H
-#define DEZIRAS_CLIMITS_H
+#pragma once
 
 #include <limits.h>
 
@@ -192,4 +187,3 @@ namespace std {
     class numeric_limits<long double>;
 }
 
-#endif //DEZIRAS_CLIMITS_H

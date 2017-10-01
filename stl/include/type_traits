@@ -1,9 +1,4 @@
-//
-// Created by Glavo on 17-9-29.
-//
-
-#ifndef DEZIRAS_TYPE_TRAITS_H
-#define DEZIRAS_TYPE_TRAITS_H
+#pragma once
 
 namespace std {
     template<typename T, T v>
@@ -103,9 +98,5 @@ namespace std {
     template< class T >
     using remove_reference_t = typename remove_reference<T>::type;
 
-
-
-
 }
 
-#endif //DEZIRAS_TYPE_TRAITS_H
