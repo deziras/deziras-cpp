@@ -3,9 +3,10 @@
 //
 
 #include<cmath>
-#include <stdlib.h>
+#include <cstdlib>
 #include <initializer_list>
 #include <cstdio>
+#include <cstdlib>
 #include <exception>
 
 class C {
@@ -26,6 +27,5 @@ int main() {
     auto x = {1, 2, 3};
     auto b = C{'a', 'b', 'c'};
 
-    throw std::exception();
 }
 
