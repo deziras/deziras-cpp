@@ -6,12 +6,6 @@
 #include <cstdio>
 #include <cstdlib>
 
-#ifdef __GNUC__
-
-#include "linux/exception.h"
-
-#endif
-
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "UnusedImportStatement"
 #pragma ide diagnostic ignored "ClangTidyInspection"

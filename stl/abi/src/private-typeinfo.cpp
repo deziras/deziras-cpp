@@ -17,52 +17,41 @@ inline bool is_equal(std::type_info const *x, std::type_info const *y, bool use_
 
 namespace __cxxabiv1 {
 
-    __shim_type_info::~__shim_type_info() {
-    }
+    __shim_type_info::~__shim_type_info() = default;
 
     void __shim_type_info::noop1() const {}
 
     void __shim_type_info::noop2() const {}
 
-    __fundamental_type_info::~__fundamental_type_info() {
-    }
+    __fundamental_type_info::~__fundamental_type_info() = default;
 
-    __array_type_info::~__array_type_info() {
-    }
+    __array_type_info::~__array_type_info() = default;
 
-    __function_type_info::~__function_type_info() {
-    }
+    __function_type_info::~__function_type_info() = default;
 
-    __enum_type_info::~__enum_type_info() {
-    }
+    __enum_type_info::~__enum_type_info() = default;
 
-    __class_type_info::~__class_type_info() {
-    }
+    __class_type_info::~__class_type_info() = default;
 
 // __si_class_type_info
 
-    __si_class_type_info::~__si_class_type_info() {
-    }
+    __si_class_type_info::~__si_class_type_info() = default;
 
 // __vmi_class_type_info
 
-    __vmi_class_type_info::~__vmi_class_type_info() {
-    }
+    __vmi_class_type_info::~__vmi_class_type_info() = default;
 
 // __pbase_type_info
 
-    __pbase_type_info::~__pbase_type_info() {
-    }
+    __pbase_type_info::~__pbase_type_info() = default;
 
 // __pointer_type_info
 
-    __pointer_type_info::~__pointer_type_info() {
-    }
+    __pointer_type_info::~__pointer_type_info() = default;
 
 // __pointer_to_member_type_info
 
-    __pointer_to_member_type_info::~__pointer_to_member_type_info() {
-    }
+    __pointer_to_member_type_info::~__pointer_to_member_type_info() = default;
 
 // can_catch
 
@@ -97,13 +86,13 @@ namespace __cxxabiv1 {
 
 // Handles bullet 1
     bool
-    __fundamental_type_info::can_catch(const __shim_type_info *thrown_type,
+    __fundamental_type_info::can_catch(__shim_type_info const *thrown_type,
                                        void *&) const {
         return is_equal(this, thrown_type, false);
     }
 
     bool
-    __array_type_info::can_catch(const __shim_type_info *, void *&) const {
+    __array_type_info::can_catch(__shim_type_info const *, void *&) const {
         // We can get here if someone tries to catch an array by reference.
         //   However if someone tries to throw an array, it immediately gets
         //   converted to a pointer, which will not convert back to an array
@@ -112,7 +101,7 @@ namespace __cxxabiv1 {
     }
 
     bool
-    __function_type_info::can_catch(const __shim_type_info *, void *&) const {
+    __function_type_info::can_catch(__shim_type_info const *, void *&) const {
         // We can get here if someone tries to catch a function by reference.
         //   However if someone tries to throw a function, it immediately gets
         //   converted to a pointer, which will not convert back to a function
@@ -122,7 +111,7 @@ namespace __cxxabiv1 {
 
 // Handles bullet 1
     bool
-    __enum_type_info::can_catch(const __shim_type_info *thrown_type,
+    __enum_type_info::can_catch(__shim_type_info const *thrown_type,
                                 void *&) const {
         return is_equal(this, thrown_type, false);
     }
@@ -134,7 +123,7 @@ namespace __cxxabiv1 {
 
 // Handles bullets 1 and 2
     bool
-    __class_type_info::can_catch(const __shim_type_info *thrown_type,
+    __class_type_info::can_catch(__shim_type_info const *thrown_type,
                                  void *&adjustedPtr) const {
         // bullet 1
         if (is_equal(this, thrown_type, false))
@@ -239,7 +228,7 @@ namespace __cxxabiv1 {
 
 // Handles bullet 1 for both pointers and member pointers
     bool
-    __pbase_type_info::can_catch(const __shim_type_info *thrown_type,
+    __pbase_type_info::can_catch(__shim_type_info const *thrown_type,
                                  void *&) const {
         bool use_strcmp = this->__flags & (__incomplete_class_mask |
                                            __incomplete_mask);
@@ -262,7 +251,7 @@ namespace __cxxabiv1 {
 // NOTE: It might not be safe to adjust the pointer if it is not not a pointer
 // type. Only adjust the pointer after we know it is safe to do so.
     bool
-    __pointer_type_info::can_catch(const __shim_type_info *thrown_type,
+    __pointer_type_info::can_catch(__shim_type_info const *thrown_type,
                                    void *&adjustedPtr) const {
         // bullet 4
         if (is_equal(thrown_type, &typeid(std::nullptr_t), false)) {
@@ -336,7 +325,7 @@ namespace __cxxabiv1 {
     }
 
     bool __pointer_type_info::can_catch_nested(
-            const __shim_type_info *thrown_type) const {
+            __shim_type_info const *thrown_type) const {
         const __pointer_type_info *thrown_pointer_type =
                 dynamic_cast<const __pointer_type_info *>(thrown_type);
         if (thrown_pointer_type == 0)
@@ -370,7 +359,7 @@ namespace __cxxabiv1 {
     }
 
     bool __pointer_to_member_type_info::can_catch(
-            const __shim_type_info *thrown_type, void *&adjustedPtr) const {
+            __shim_type_info const *thrown_type, void *&adjustedPtr) const {
         // bullet 4
         if (is_equal(thrown_type, &typeid(std::nullptr_t), false)) {
             // We assume that the pointer to member representation is the same for
