@@ -21,31 +21,31 @@ namespace __cxxabiv1 {
         ~__fundamental_type_info() override;
 
         bool can_catch(__shim_type_info const *,
-                               void *&) const override;
+                       void *&) const override;
     };
 
     class __array_type_info : public __shim_type_info {
     public:
-        ~__array_type_info() override;
+        virtual ~__array_type_info();
 
         bool can_catch(__shim_type_info const *,
-                               void *&) const override;
+                       void *&) const override;
     };
 
     class __function_type_info : public __shim_type_info {
     public:
-        ~__function_type_info() override;
+        virtual ~__function_type_info();
 
         bool can_catch(__shim_type_info const *,
-                               void *&) const override;
+                       void *&) const override;
     };
 
     class __enum_type_info : public __shim_type_info {
     public:
-        ~__enum_type_info() override;
+        virtual ~__enum_type_info();
 
         bool can_catch(__shim_type_info const *,
-                               void *&) const override;
+                       void *&) const override;
     };
 
     enum {
@@ -105,7 +105,7 @@ namespace __cxxabiv1 {
         virtual void
         search_below_dst(__dynamic_cast_info *, void const *, int, bool) const;
 
-        virtual bool can_catch(const __shim_type_info *,
+        virtual bool can_catch(__shim_type_info const *,
                                void *&) const;
 
         virtual void

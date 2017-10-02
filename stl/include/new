@@ -36,6 +36,12 @@ namespace std {
 
     using new_handler = void (*)();
 
+    std::new_handler get_new_handler() noexcept;
+
+    std::new_handler set_new_handler(std::new_handler new_p);
+
+    enum class align_val_t : std::size_t {};
+
 }
 
 void *operator new(size_t);

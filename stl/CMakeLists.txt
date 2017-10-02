@@ -1,4 +1,7 @@
 include_directories(include)
+include_directories(abi/include)
+
+
 
 add_library(deziras-c++
         src/iostream.cpp
@@ -19,5 +22,9 @@ add_library(deziras-c++
         src/exception.cpp
         src/linux/exception.h
         include/cstdio
-        src/typeinfo.cpp include/cstring)
+        src/typeinfo.cpp
+        include/cstring
+        abi/include/deziras/private-typeinfo.h
+        abi/src/private-typeinfo.cpp
+        )
 target_link_libraries(deziras-c++ c)
