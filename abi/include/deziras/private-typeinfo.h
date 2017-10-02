@@ -6,46 +6,46 @@ namespace __cxxabiv1 {
 
     class __shim_type_info : public std::type_info {
     public:
-        virtual ~__shim_type_info() override;
+        virtual ~__shim_type_info();
 
         virtual void noop1() const;
 
         virtual void noop2() const;
 
-        virtual bool can_catch(const __shim_type_info *thrown_type,
+        virtual bool can_catch(__shim_type_info const *thrown_type,
                                void *&adjustedPtr) const = 0;
     };
 
     class __fundamental_type_info : public __shim_type_info {
     public:
-        virtual ~__fundamental_type_info();
+        ~__fundamental_type_info() override;
 
-        virtual bool can_catch(const __shim_type_info *,
-                               void *&) const;
+        bool can_catch(__shim_type_info const *,
+                               void *&) const override;
     };
 
     class __array_type_info : public __shim_type_info {
     public:
-        virtual ~__array_type_info();
+        ~__array_type_info() override;
 
-        virtual bool can_catch(const __shim_type_info *,
-                               void *&) const;
+        bool can_catch(__shim_type_info const *,
+                               void *&) const override;
     };
 
     class __function_type_info : public __shim_type_info {
     public:
-        virtual ~__function_type_info();
+        ~__function_type_info() override;
 
-        virtual bool can_catch(const __shim_type_info *,
-                               void *&) const;
+        bool can_catch(__shim_type_info const *,
+                               void *&) const override;
     };
 
     class __enum_type_info : public __shim_type_info {
     public:
-        virtual ~__enum_type_info();
+        ~__enum_type_info() override;
 
-        virtual bool can_catch(const __shim_type_info *,
-                               void *&) const;
+        bool can_catch(__shim_type_info const *,
+                               void *&) const override;
     };
 
     enum {
@@ -59,72 +59,51 @@ namespace __cxxabiv1 {
     class __class_type_info;
 
     struct __dynamic_cast_info {
-// const data supplied to the search:
-
-        const __class_type_info *dst_type;
-        const void *static_ptr;
-        const __class_type_info *static_type;
+        __class_type_info const *dst_type;
+        void const *static_ptr;
+        __class_type_info const *static_type;
         std::ptrdiff_t src2dst_offset;
 
-// Data that represents the answer:
 
-        // pointer to a dst_type which has (static_ptr, static_type) above it
-        const void *dst_ptr_leading_to_static_ptr;
-        // pointer to a dst_type which does not have (static_ptr, static_type) above it
-        const void *dst_ptr_not_leading_to_static_ptr;
+        void const *dst_ptr_leading_to_static_ptr;
+        void const *dst_ptr_not_leading_to_static_ptr;
 
-        // The following three paths are either unknown, public_path or not_public_path.
-        // access of path from dst_ptr_leading_to_static_ptr to (static_ptr, static_type)
         int path_dst_ptr_to_static_ptr;
-        // access of path from (dynamic_ptr, dynamic_type) to (static_ptr, static_type)
-        //    when there is no dst_type along the path
         int path_dynamic_ptr_to_static_ptr;
-        // access of path from (dynamic_ptr, dynamic_type) to dst_type
-        //    (not used if there is a (static_ptr, static_type) above a dst_type).
         int path_dynamic_ptr_to_dst_ptr;
 
-        // Number of dst_types below (static_ptr, static_type)
         int number_to_static_ptr;
-        // Number of dst_types not below (static_ptr, static_type)
         int number_to_dst_ptr;
 
-// Data that helps stop the search before the entire tree is searched:
 
-        // is_dst_type_derived_from_static_type is either unknown, yes or no.
         int is_dst_type_derived_from_static_type;
-        // Number of dst_type in tree.  If 0, then that means unknown.
         int number_of_dst_type;
-        // communicates to a dst_type node that (static_ptr, static_type) was found
-        //    above it.
         bool found_our_static_ptr;
-        // communicates to a dst_type node that a static_type was found
-        //    above it, but it wasn't (static_ptr, static_type)
         bool found_any_static_type;
-        // Set whenever a search can be stopped
         bool search_done;
     };
 
 // Has no base class
     class __class_type_info : public __shim_type_info {
     public:
-        virtual ~__class_type_info();
+        ~__class_type_info() override;
 
         void process_static_type_above_dst(__dynamic_cast_info *,
-                                           const void *,
-                                           const void *, int) const;
+                                           void const *,
+                                           void const *, int) const;
 
         void process_static_type_below_dst(__dynamic_cast_info *,
-                                           const void *, int) const;
+                                           void const *, int) const;
 
         void process_found_base_class(__dynamic_cast_info *, void *,
                                       int) const;
 
         virtual void search_above_dst(__dynamic_cast_info *,
-                                      const void *, const void *,
+                                      void const *, void const *,
                                       int, bool) const;
 
         virtual void
-        search_below_dst(__dynamic_cast_info *, const void *, int, bool) const;
+        search_below_dst(__dynamic_cast_info *, void const *, int, bool) const;
 
         virtual bool can_catch(const __shim_type_info *,
                                void *&) const;
@@ -141,11 +120,11 @@ namespace __cxxabiv1 {
         virtual ~__si_class_type_info();
 
         virtual void search_above_dst(__dynamic_cast_info *,
-                                      const void *, const void *,
+                                      void const *, void const *,
                                       int, bool) const;
 
         virtual void
-        search_below_dst(__dynamic_cast_info *, const void *, int, bool) const;
+        search_below_dst(__dynamic_cast_info *, void const *, int, bool) const;
 
         virtual void
         has_unambiguous_public_base(__dynamic_cast_info *, void *, int) const;
@@ -162,9 +141,9 @@ namespace __cxxabiv1 {
             __offset_shift = 8
         };
 
-        void search_above_dst(__dynamic_cast_info *, const void *, const void *, int, bool) const;
+        void search_above_dst(__dynamic_cast_info *, void const *, void const *, int, bool) const;
 
-        void search_below_dst(__dynamic_cast_info *, const void *, int, bool) const;
+        void search_below_dst(__dynamic_cast_info *, void const *, int, bool) const;
 
         void has_unambiguous_public_base(__dynamic_cast_info *, void *, int) const;
     };
@@ -186,11 +165,11 @@ namespace __cxxabiv1 {
         virtual ~__vmi_class_type_info();
 
         virtual void search_above_dst(__dynamic_cast_info *,
-                                      const void *, const void *,
+                                      void const *, void const *,
                                       int, bool) const;
 
         virtual void
-        search_below_dst(__dynamic_cast_info *, const void *, int, bool) const;
+        search_below_dst(__dynamic_cast_info *, void const *, int, bool) const;
 
         virtual void
         has_unambiguous_public_base(__dynamic_cast_info *, void *, int) const;
