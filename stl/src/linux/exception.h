@@ -2,9 +2,7 @@
 
 #include <cstdlib>
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "ClangTidyInspection"
-
+#ifdef __GNUC__
 extern "C"
 void *__cxa_allocate_exception(size_t thrown_size) noexcept {
     return malloc(thrown_size);
@@ -24,5 +22,4 @@ void __cxa_throw(
     exit(0);
 }
 
-
-#pragma clang diagnostic pop
+#endif

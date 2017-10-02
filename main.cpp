@@ -2,12 +2,10 @@
 // Created by Glavo on 17-9-29.
 //
 
-#include<cmath>
-#include <cstdlib>
 #include <initializer_list>
-#include <cstdio>
 #include <cstdlib>
-#include <exception>
+#include <typeinfo>
+#include <cstdio>
 
 class C {
     char const *data;
@@ -26,6 +24,6 @@ public:
 int main() {
     auto x = {1, 2, 3};
     auto b = C{'a', 'b', 'c'};
-
+    printf("%s",  typeid(C).name());
 }
 

@@ -17,7 +17,7 @@
 #pragma ide diagnostic ignored "ClangTidyInspection"
 
 namespace std {
-    static int nexception;
+    extern int __exceptions;
     static void *exception_stack;
 
     static void default_unexpected_handle() {
@@ -80,10 +80,10 @@ namespace std {
     }
 
     int uncaught_exceptions() noexcept {
-        return nexception;
+        return __exceptions;
     }
 
-    bool std::uncaught_exception() noexcept {
+    bool uncaught_exception() noexcept {
         return std::uncaught_exceptions() > 0;
     }
 }

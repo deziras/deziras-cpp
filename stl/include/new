@@ -15,6 +15,19 @@ namespace std {
         }
     };
 
+    class bad_array_new_length : public bad_alloc {
+    public:
+        bad_array_new_length() noexcept = default;
+
+        bad_array_new_length(bad_array_new_length const &) noexcept = default;
+
+        bad_array_new_length(bad_array_new_length &&) = default;
+
+        virtual char const *what() const noexcept override {
+            return "std::bad_array_new_length";
+        }
+    };
+
     struct nothrow_t {
         explicit nothrow_t() = default;
     };

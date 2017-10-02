@@ -1,6 +1,6 @@
 include_directories(include)
 
-add_library(deziras-c++ ${STD_SOURCES}
+add_library(deziras-c++
         src/iostream.cpp
         include/cmath
         include/cstddef
@@ -19,5 +19,5 @@ add_library(deziras-c++ ${STD_SOURCES}
         src/exception.cpp
         src/linux/exception.h
         include/cstdio
-        )
-target_link_libraries(deziras-c++ c m)
+        src/typeinfo.cpp include/cstring)
+target_link_libraries(deziras-c++ c)
