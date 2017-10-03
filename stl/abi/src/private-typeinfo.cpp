@@ -2,7 +2,7 @@
 // Created by Glavo on 17-10-2.
 //
 
-#include <deziras/private-typeinfo.h>
+#include "private-typeinfo.h"
 #include <cstring>
 
 inline bool is_equal(std::type_info const *x, std::type_info const *y, bool use_strcmp) {

@@ -25,107 +25,76 @@ namespace std {
 }
 
 
-void *
-operator new(std::size_t size) {
+void *operator new(std::size_t size) {
     if (size == 0)
         size = 1;
     void *p;
-    while ((
-                   p = ::malloc(size)
-           ) == nullptr) {
-// If malloc fails and there is a new_handler,
-// call it to try free up memory.
+    while ((p = ::malloc(size)) == nullptr) {
         std::new_handler nh = std::get_new_handler();
         if (nh)
-
             nh();
-
-        else
-#ifndef _LIBCPP_NO_EXCEPTIONS
-            throw
-
-                    std::bad_alloc();
-
-#else
-        break;
-#endif
+        else {
+            throw std::bad_alloc();
+        }
     }
-    return
-            p;
-}
-
-
-void *
-operator new(size_t size, std::nothrow_t const &) noexcept {
-    void *p = 0;
-#ifndef _LIBCPP_NO_EXCEPTIONS
-    try {
-#endif  // _LIBCPP_NO_EXCEPTIONS
-        p = ::operator new(size);
-#ifndef _LIBCPP_NO_EXCEPTIONS
-    }
-    catch (...) {
-    }
-#endif  // _LIBCPP_NO_EXCEPTIONS
     return p;
 }
 
 
-void *
-operator new[](size_t size) {
-    return
-            ::operator new(size);
+void *operator new(size_t size, std::nothrow_t const &) noexcept {
+    void *p = 0;
+    try {
+        p = ::operator new(size);
+    }
+    catch (...) {}
+    return p;
 }
 
 
-void *
-operator new[](size_t size, std::nothrow_t const &) noexcept {
+void *operator new[](size_t size) {
+    return ::operator new(size);
+}
+
+
+void *operator new[](size_t size, std::nothrow_t const &) noexcept {
     void *p = 0;
 
     try {
         p = ::operator new[](size);
     }
-    catch (...) {
-    }
+    catch (...) {}
 
     return p;
 }
 
 
-void
-operator delete(void *ptr) noexcept {
+void operator delete(void *ptr) noexcept {
     if (ptr)
         ::free(ptr);
 }
 
-void
-operator delete(void *ptr, std::nothrow_t const &) noexcept {
+void operator delete(void *ptr, std::nothrow_t const &) noexcept {
     ::operator delete(ptr);
 }
 
-void
-operator delete(void *ptr, size_t) noexcept {
+void operator delete(void *ptr, size_t) noexcept {
     ::operator delete(ptr);
 }
 
-void
-operator delete[](void *ptr) noexcept {
+void operator delete[](void *ptr) noexcept {
     ::operator delete(ptr);
 }
 
-void
-operator delete[](void *ptr, std::nothrow_t const &) noexcept {
+void operator delete[](void *ptr, std::nothrow_t const &) noexcept {
     ::operator delete[](ptr);
 }
 
-void
-operator delete[](void *ptr, size_t) noexcept {
+void operator delete[](void *ptr, size_t) noexcept {
     ::operator delete[](ptr);
 }
 
 
-void *
-operator new(std::size_t size, std::align_val_t alignment) {
+void *operator new(std::size_t size, std::align_val_t alignment) {
     if (size == 0)
         size = 1;
     if (static_cast
@@ -136,18 +105,13 @@ operator new(std::size_t size, std::align_val_t alignment) {
 #if defined(_LIBCPP_MSVCRT_LIKE)
     while ((p = _aligned_malloc(size, static_cast<size_t>(alignment))) == nullptr)
 #else
-    while (
-            ::posix_memalign(&p,
-                             static_cast
-                                     <size_t>(alignment), size
-            ) != 0)
+    while (::posix_memalign(&p, static_cast<size_t>(alignment), size) != 0)
 #endif
     {
 // If posix_memalign fails and there is a new_handler,
 // call it to try free up memory.
         std::new_handler nh = std::get_new_handler();
         if (nh)
-
             nh();
 
         else {

@@ -23,7 +23,7 @@ add_library(deziras-c++
         include/cstdio
         src/typeinfo.cpp
         include/cstring
-        abi/include/deziras/private-typeinfo.h
+        abi/src/private-typeinfo.h
         abi/src/private-typeinfo.cpp
-        abi/src/exception-abi.cpp)
+        abi/src/exception-abi.cpp abi/src/unwind.h)
 target_link_libraries(deziras-c++ c)
