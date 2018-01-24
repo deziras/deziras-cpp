@@ -1,0 +1,71 @@
+#pragma once
+
+#include <cstddef>
+#include <type_traits>
+#include <new>
+#include <utility>
+
+namespace std {
+    template<typename T>
+    T *__addressof(T &t) {
+        return reinterpret_cast<T *>(
+                const_cast<char *>(&reinterpret_cast<const volatile char &>(t)));
+    }
+
+    template<typename T>
+    struct allocator {
+        using value_type = T;
+        using pointer = T *;
+        using const_pointer = const T *;
+        using reference = T &;
+        using const_reference = const T &;
+        using size_type = std::size_t;
+        using difference_type = std::ptrdiff_t;
+        using propagate_on_container_move_assignmen = std::true_type;
+
+        template<typename U>
+        struct rebind { using other =  allocator<U>; };
+
+        allocator() = default;
+
+        allocator(const allocator &other) = default;
+
+        template<class U>
+        allocator(const allocator<U> &other) {}
+
+        ~allocator() = default;
+
+        pointer address(reference x) const {
+            return __addressof(x);
+        }
+
+        const_pointer address(const_reference x) const {
+            return __addressof(x);
+        }
+
+        pointer allocate(size_type n, std::allocator<void>::const_pointer hint = nullptr) {
+            if (n > max_size()) {
+                //todo: __throw_length_error("allocator<const T>::allocate(size_t n) 'n' exceeds maximum supported size");
+            }
+            return static_cast<pointer>(::operator new(n * sizeof(T)));
+        }
+
+        void deallocate(pointer p, std::size_t n) {
+            ::operator delete(static_cast<void *>(const_cast<T *>(p)));
+        }
+
+        size_type max_size() const {
+            return static_cast<size_type>(~0) / sizeof(T);
+        }
+
+        template<typename U, typename ... Args>
+        inline void construct(U *p, Args &&... args) {
+            ::new(static_cast<void *> (p)) U(forward<Args>(args)...);
+        };
+
+        template<typename U>
+        inline void destroy(U *p) {
+            p->~T();
+        }
+    };
+}

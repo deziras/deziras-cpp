@@ -1,0 +1,52 @@
+#pragma once
+
+#include <initializer_list>
+#include <type_traits>
+
+namespace std {
+    namespace rel_ops {
+
+        template<typename T>
+        inline bool operator!=(const T &x, const T &y) {
+            return !(x == y);
+        }
+
+        template<typename T>
+        inline bool operator>(const T &x, const T &y) {
+            return y < x;
+        }
+
+        template<typename T>
+        inline bool operator<=(const T &x, const T &y) {
+            return !(y < x);
+        }
+
+        template<typename T>
+        inline bool operator>=(const T &x, const T &y) {
+            return !(x < y);
+        }
+
+    }
+
+    template<typename T>
+    void swap(T &a, T &b); //todo
+
+    template<typename T>
+    inline constexpr
+    T &&forward(typename std::remove_reference<T>::type &__t) noexcept {
+        return static_cast<T &&>(__t);
+    }
+
+    template<typename T>
+    inline constexpr
+    T &&forward(typename std::remove_reference<T>::type &&__t) noexcept {
+        static_assert(!is_lvalue_reference<T>::value,
+                      "can not forward an rvalue as an lvalue");
+        return static_cast<T &&>(__t);
+    }
+
+    template<typename T>
+    typename std::remove_reference<T>::type &&move(T &&t) noexcept {
+        return static_cast<typename std::remove_reference<T>::type &&>(t);
+    }
+}

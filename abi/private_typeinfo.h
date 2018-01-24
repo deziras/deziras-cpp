@@ -3,7 +3,7 @@
 namespace __cxxabiv1 {
     class __shim_type_info : public std::type_info {
     protected:
-        explicit __shim_type_info(char const *name) : std::type_info(name) {}
+        explicit __shim_type_info(const char **name) : std::type_info(name) {}
 
     public:
         virtual ~__shim_type_info();
@@ -17,7 +17,7 @@ namespace __cxxabiv1 {
 
     class __fundamental_type_info : public __shim_type_info {
     protected:
-        explicit __fundamental_type_info(char const *name) : __shim_type_info(name) {}
+        explicit __fundamental_type_info(const char **name) : __shim_type_info(name) {}
 
     public:
         virtual~__fundamental_type_info();
@@ -27,7 +27,7 @@ namespace __cxxabiv1 {
 
     class __array_type_info : public __shim_type_info {
     protected:
-        explicit __array_type_info(char const *name) : __shim_type_info(name) {}
+        explicit __array_type_info(const char **name) : __shim_type_info(name) {}
 
     public:
         virtual~__array_type_info();
@@ -37,7 +37,7 @@ namespace __cxxabiv1 {
 
     class __enum_type_info : public __shim_type_info {
     protected:
-        explicit __enum_type_info(char const *name) : __shim_type_info(name) {}
+        explicit __enum_type_info(const char **name) : __shim_type_info(name) {}
 
     public:
         virtual~__enum_type_info();
@@ -95,7 +95,7 @@ namespace __cxxabiv1 {
 
     class __class_type_info : public __shim_type_info {
     protected:
-        explicit __class_type_info(char const *name) : __shim_type_info(name) {}
+        explicit __class_type_info(const char **name) : __shim_type_info(name) {}
 
     public:
         virtual~__class_type_info();
@@ -103,7 +103,7 @@ namespace __cxxabiv1 {
 
     class __si_class_type_info : public __class_type_info {
     protected:
-        explicit __si_class_type_info(char const *name) : __class_type_info(name) {}
+        explicit __si_class_type_info(const char **name) : __class_type_info(name) {}
 
     public:
         __class_type_info const *__base_type;
@@ -126,7 +126,7 @@ namespace __cxxabiv1 {
 
     class __vmi_class_type_info : public __class_type_info {
     protected:
-        explicit __vmi_class_type_info(char const *name) : __class_type_info(name) {}
+        explicit __vmi_class_type_info(const char **name) : __class_type_info(name) {}
 
     public:
         unsigned int __flags;
@@ -144,7 +144,7 @@ namespace __cxxabiv1 {
 
     class __pbase_type_info : public __shim_type_info {
     protected:
-        explicit __pbase_type_info(char const *name) : __shim_type_info(name) {}
+        explicit __pbase_type_info(const char **name) : __shim_type_info(name) {}
 
     public:
         unsigned int __flags;
@@ -165,7 +165,7 @@ namespace __cxxabiv1 {
 
     class __pointer_type_info : public __pbase_type_info {
     protected:
-        explicit __pointer_type_info(char const *name) : __pbase_type_info(name) {}
+        explicit __pointer_type_info(const char **name) : __pbase_type_info(name) {}
 
     public:
         virtual ~__pointer_type_info();
@@ -173,7 +173,7 @@ namespace __cxxabiv1 {
 
     class __pointer_to_member_type_info : public __pbase_type_info {
     protected:
-        explicit __pointer_to_member_type_info(char const *name) : __pbase_type_info(name) {}
+        explicit __pointer_to_member_type_info(const char **name) : __pbase_type_info(name) {}
 
     public:
         __class_type_info const *__context;

@@ -38,7 +38,8 @@ namespace std { //todo
     struct is_void : std::is_same<void, typename std::remove_cv<T>::type> {};
 
     // template<typename T> struct is_null_pointer;
-    template<typename T> struct is_null_pointer : std::is_same<nullptr_t , typename std::remove_cv<T>::type> {};
+    template<typename T>
+    struct is_null_pointer : std::is_same<nullptr_t, typename std::remove_cv<T>::type> {};
 
     template<typename T>
     struct is_integral;
@@ -48,10 +49,19 @@ namespace std { //todo
     struct is_array;
     template<typename T>
     struct is_pointer;
+
+    // template<typename T> struct is_lvalue_reference;
     template<typename T>
-    struct is_lvalue_reference;
+    struct is_lvalue_reference : std::false_type {};
     template<typename T>
-    struct is_rvalue_reference;
+    struct is_lvalue_reference<T &> : std::true_type {};
+
+    // template<typename T> struct is_rvalue_reference;
+    template<typename T>
+    struct is_rvalue_reference : std::false_type {};
+    template<typename T>
+    struct is_rvalue_reference<T &&> : std::true_type {};
+
     template<typename T>
     struct is_member_object_pointer;
     template<typename T>
@@ -114,21 +124,31 @@ namespace std { //todo
     };
 
     // template<typename T> struct add_const;
-    template<typename T> struct add_const {
+    template<typename T>
+    struct add_const {
         using type = const T;
     };
     // template<typename T> struct add_volatile;
-    template<typename T> struct add_volatile {
+    template<typename T>
+    struct add_volatile {
         using type = volatile T;
     };
     // template<typename T> struct add_cv;
-    template<typename T> struct add_cv {
+    template<typename T>
+    struct add_cv {
         using type = const volatile T;
     };
 
     // Reference transformations:
-    template<class T>
-    struct remove_reference;
+
+    //template<typename T> struct remove_reference;
+    template<typename T>
+    struct remove_reference { using type = T; };
+    template<typename T>
+    struct remove_reference<T &> { using type = T; };
+    template<typename T>
+    struct remove_reference<T &&> { using type = T; };
+
     template<class T>
     struct add_lvalue_reference;
     template<class T>

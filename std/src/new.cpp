@@ -11,11 +11,11 @@ static std::new_handler newHandler = nullptr;
 namespace std {
     const nothrow_t nothrow = nothrow_t{};
 
-    char const *bad_alloc::what() const {
+    const char *bad_alloc::what() const noexcept {
         return "std::bad_alloc";
     }
 
-    char const* bad_array_new_length::what() const {
+    char const* bad_array_new_length::what() const noexcept {
         return "std::bad_array_new_length";
     }
 

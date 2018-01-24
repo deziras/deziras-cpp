@@ -10,7 +10,7 @@ namespace std {
 
         bad_alloc(bad_alloc const &) noexcept = default;
 
-        virtual char const *what() const noexcept override;
+        virtual const char *what() const noexcept override;
     };
 
     class bad_array_new_length : public bad_alloc {
@@ -21,7 +21,7 @@ namespace std {
 
         bad_array_new_length(bad_array_new_length &&) = default;
 
-        virtual char const *what() const noexcept override;
+        virtual const char *what() const noexcept override;
     };
 
     struct nothrow_t {

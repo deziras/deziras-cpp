@@ -11,7 +11,7 @@ namespace std {
         type_info &operator=(type_info const &rhs) = delete;
 
     protected:
-        char const *__type_name;
+        const char *__type_name;
 
         explicit type_info(const char *name) : __type_name(name) {}
 
@@ -36,7 +36,7 @@ namespace std {
             return reinterpret_cast<size_t >(__type_name);
         }
 
-        char const *name() const noexcept {
+        const char *name() const noexcept {
             return __type_name;
         }
 
@@ -61,7 +61,7 @@ namespace std {
 
         bad_typeid &operator=(bad_typeid const &) noexcept = default;
 
-        char const *what() const noexcept override;
+        const char *what() const noexcept override;
     };
 }
 

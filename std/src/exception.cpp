@@ -28,7 +28,7 @@ namespace std {
 
     exception::~exception() noexcept = default;
 
-    char const *exception::what() const noexcept {
+    const char *exception::what() const noexcept {
         return "std::exception";
     }
 
@@ -40,7 +40,7 @@ namespace std {
 
     bad_exception::~bad_exception() noexcept = default;
 
-    char const *bad_exception::what() const noexcept {
+    const char *bad_exception::what() const noexcept {
         return "std::bad_exception";
     }
 

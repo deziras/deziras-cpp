@@ -1,0 +1,117 @@
+#pragma once
+
+#include <cstddef>
+#include <cstring>
+#include <cassert>
+#include "cstdio"
+
+namespace std {
+    template<typename CharT>
+    struct char_traits {
+        using char_type = CharT;
+        using int_type = int;
+        //todo
+
+        static inline
+        int compare(const char_type *s1, const char_type *s2, std::size_t n);
+    };
+
+    template<>
+    struct char_traits<char> {
+        using char_type = char;
+        using char_traits = char;
+        using int_type = int;
+        // using off_type = std::streamoff;
+        // using pos_type = std::streampos;
+        // using state_type = std::mbstate_t;
+
+        static inline
+        void assign(char_type &r, const char_type &a) {
+            r = a;
+        }
+
+        static inline constexpr
+        bool eq(char_type c1, char_type c2) {
+            return c1 == c2;
+        }
+
+        static inline constexpr
+        bool lt(char_type c1, char_type c2) noexcept {
+            return static_cast<unsigned char>(c1) < static_cast<unsigned char>(c2);
+        }
+
+        static inline
+        int compare(const char_type *s1, const char_type *s2, std::size_t n);
+
+        static inline
+        std::size_t length(const char_type *str)  noexcept {
+            return ::strlen(str);
+        }
+
+        static const char_type *find(const char_type *str, size_t n, const char_type &ch);
+
+        static inline
+        char_type *move(char_type *str1, const char_type *str2, size_t n) noexcept {
+            return n == 0 ? str1 : static_cast<char_type *> (memmove(str1, str2, n));
+        }
+
+        static inline char_type *copy(char_type *str1, const char_type *str2, size_t n) noexcept {
+            assert(str2 < str1 || str2 >= str1 + n);
+            return n == 0 ? str1 : static_cast<char_type *>( memcpy(str1, str2, n));
+        }
+
+        static inline
+        char_type *assign(char_type *p, std::size_t n, char_type a) noexcept {
+            return n == 0 ? p : (char_type *) ::memset(p, a, n);
+        }
+
+        static inline constexpr
+        int_type not_eof(int_type __c) noexcept {
+            return eq_int_type(__c, eof()) ? ~eof() : __c;
+        }
+
+        static inline constexpr
+        char_type to_char_type(int_type ch) noexcept {
+            return static_cast<char_type>(ch);
+        }
+
+        static inline constexpr
+        int_type to_int_type(char_type ch) noexcept {
+            return static_cast<int_type>(static_cast<unsigned char> (ch));
+        }
+
+        static inline constexpr
+        bool eq_int_type(int_type ch1, int_type ch2) noexcept {
+            return ch1 == ch2;
+        }
+
+        static inline constexpr
+        int_type eof() noexcept {
+            return EOF;
+        }
+
+    };
+
+    template<typename CharT>
+    inline int char_traits<CharT>::compare(const char_type *s1, const char_type *s2, std::size_t n) {
+        for (; n; --n, ++s1, ++s2) {
+            if (lt(*s1, *s2))
+                return -1;
+            if (lt(*s2, *s1))
+                return 1;
+        }
+        return 0;
+    }
+
+    template<class CharT>
+    inline const CharT *char_traits<CharT>::find(const char_type *str, size_t n, const char_type &ch) {
+        for (; n; --n) {
+            if (eq(*str, ch))
+                return str;
+            ++str;
+        }
+        return 0;
+    }
+
+
+}

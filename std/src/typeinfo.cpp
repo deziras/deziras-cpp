@@ -12,7 +12,7 @@ namespace std {
         return "std::bad_cast";
     }
 
-    char const *bad_typeid::what() const noexcept {
+    const char *bad_typeid::what() const noexcept {
         return "std::bad_typeid";
     }
 }
