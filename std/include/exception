@@ -11,11 +11,9 @@ namespace std {
 
         exception &operator=(exception const &) noexcept = default;
 
-        virtual ~exception() = default;
+        virtual ~exception();
 
-        virtual char const *what() const noexcept {
-            return "std::exception";
-        }
+        virtual char const *what() const noexcept;
     };
 
     class bad_exception : public exception {
@@ -26,10 +24,10 @@ namespace std {
 
         bad_exception &operator=(bad_exception const &) noexcept = default;
 
-        virtual char const *what() const noexcept override {
-            return "std::bad_exception";
-        }
+        virtual char const *what() const noexcept override;
     };
+
+    //todo: class nested_exception;
 
     using unexpected_handler = void (*)();
 
@@ -37,7 +35,8 @@ namespace std {
 
     unexpected_handler set_unexpected(unexpected_handler f) noexcept;
 
-    [[noreturn]] void unexpected();
+    [[noreturn]]
+    void unexpected();
 
 
     using terminate_handler  = void (*)();
@@ -46,7 +45,8 @@ namespace std {
 
     terminate_handler set_terminate(terminate_handler f) noexcept;
 
-    [[noreturn]] void terminate() noexcept;
+    [[noreturn]]
+    void terminate() noexcept;
 
     int uncaught_exceptions() noexcept;
 

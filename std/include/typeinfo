@@ -2,7 +2,7 @@
 
 #include <cstddef>
 #include <exception>
-#include "cstdint"
+#include <cstdint>
 
 namespace std {
     class type_info {
@@ -20,138 +20,37 @@ namespace std {
     public:
         virtual ~type_info();
 
-        bool operator==(type_info const &) const noexcept;
+        bool operator==(type_info const &other) const noexcept {
+            return __type_name == other.__type_name;
+        }
 
-        bool operator!=(type_info const &) const noexcept;
+        bool operator!=(type_info const &other) const noexcept {
+            return !this->operator==(other);
+        }
 
-        bool before(type_info const &rhs) const noexcept;
+        bool before(type_info const &__arg) const noexcept {
+            return __type_name < __arg.__type_name;
+        }
 
-        size_t hash_code() const noexcept;
+        size_t hash_code() const noexcept {
+            return reinterpret_cast<size_t >(__type_name);
+        }
 
-        char const *name() const noexcept;
-
-    };
-}
-
-namespace __cxxabiv1 {
-    class __shim_type_info : public std::type_info {
-    protected:
-        explicit __shim_type_info(char const *name) : std::type_info(name) {}
-
-    public:
-        virtual ~__shim_type_info();
-    };
-
-    class __fundamental_type_info : public __shim_type_info {
-    protected:
-        explicit __fundamental_type_info(char const *name) : __shim_type_info(name) {}
-
-    public:
-        virtual~__fundamental_type_info();
-    };
-
-    class __array_type_info : public __shim_type_info {
-    protected:
-        explicit __array_type_info(char const *name) : __shim_type_info(name) {}
-
-    public:
-        virtual~__array_type_info();
-    };
-
-    class __enum_type_info : public __shim_type_info {
-    protected:
-        explicit __enum_type_info(char const *name) : __shim_type_info(name) {}
-
-    public:
-        virtual~__enum_type_info();
-    };
-
-    class __class_type_info : public __shim_type_info {
-    protected:
-        explicit __class_type_info(char const *name) : __shim_type_info(name) {}
-
-    public:
-        virtual~__class_type_info();
-    };
-
-    class __si_class_type_info : public __class_type_info {
-    protected:
-        explicit __si_class_type_info(char const *name) : __class_type_info(name) {}
-
-    public:
-        __class_type_info const *__base_type;
-
-        virtual ~__si_class_type_info();
-    };
-
-    struct __base_class_type_info {
-    public:
-        __class_type_info const *__base_type;
-        long __offset_flags;
-
-        enum __offset_flags_masks {
-            __virtual_mask = 0x1,
-            __public_mask = 0x2,
-            __offset_shift = 8
-        };
+        char const *name() const noexcept {
+            return __type_name;
+        }
 
     };
 
-    class __vmi_class_type_info : public __class_type_info {
-    protected:
-        explicit __vmi_class_type_info(char const *name) : __class_type_info(name) {}
-
+    class bad_cast : public exception {
     public:
-        unsigned int __flags;
-        unsigned int __base_count;
-        __base_class_type_info __base_info[1];
+        bad_cast() noexcept = default;
 
-        virtual ~__vmi_class_type_info();
+        bad_cast(const bad_cast &) noexcept = default;
 
-        enum __flags_masks {
-            __non_diamond_repeat_mask = 0x1,
-            __diamond_shaped_mask = 0x2
-        };
-    };
+        bad_cast &operator=(const bad_cast &) noexcept = default;
 
-
-    class __pbase_type_info : public __shim_type_info {
-    protected:
-        explicit __pbase_type_info(char const *name) : __shim_type_info(name) {}
-
-    public:
-        unsigned int __flags;
-        std::type_info const *__pointee;
-
-        virtual ~__pbase_type_info();
-
-        enum __masks {
-            __const_mask = 0x1,
-            __volatile_mask = 0x2,
-            __restrict_mask = 0x4,
-            __incomplete_mask = 0x8,
-            __incomplete_class_mask = 0x10,
-            __transaction_safe_mask = 0x20,
-            __noexcept_mask = 0x40
-        };
-    };
-
-    class __pointer_type_info : public __pbase_type_info {
-    protected:
-        explicit __pointer_type_info(char const *name) : __pbase_type_info(name) {}
-
-    public:
-        virtual ~__pointer_type_info();
-    };
-
-    class __pointer_to_member_type_info : public __pbase_type_info {
-    protected:
-        explicit __pointer_to_member_type_info(char const *name) : __pbase_type_info(name) {}
-
-    public:
-        __class_type_info const *__context;
-
-        virtual ~__pointer_to_member_type_info();
+        const char *what() const noexcept override;
     };
 
 }

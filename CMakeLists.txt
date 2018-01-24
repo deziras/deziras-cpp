@@ -9,5 +9,6 @@ add_subdirectory(std)
 
 include_directories(std/include)
 
+
 add_executable(main main.cpp)
-target_link_libraries(main deziras-c++)
+target_link_libraries(main deziras-c++  c unwind c++abi gcc_s)

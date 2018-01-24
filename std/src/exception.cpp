@@ -6,21 +6,25 @@
 #include <cstdio>
 #include <cstdlib>
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "UnusedImportStatement"
-#pragma ide diagnostic ignored "ClangTidyInspection"
-
 namespace std {
-    extern int __exceptions;
-    static void *exception_stack;
+    exception::~exception() = default;
+
+    char const *exception::what() const noexcept {
+        return "std::exception";
+    }
+
+    char const *bad_exception::what() const noexcept {
+        return "std::bad_exception";
+    }
 
     static void default_unexpected_handle() {
         fprintf(stderr, "terminating");
-        exit(6);
+        ::exit(6);
     }
 
+    extern int __exceptions;
+    static void *exception_stack;
     static unexpected_handler uh = default_unexpected_handle;
-
     static terminate_handler th = default_unexpected_handle;
 
     unexpected_handler get_unexpected() noexcept {
@@ -33,15 +37,15 @@ namespace std {
         return old;
     }
 
-    [[noreturn]] void unexpected() {
+    [[noreturn]]
+    void unexpected() {
         try {
             uh();
             // handler should not return
             fprintf(stderr,
                     "terminate_handler unexpectedly returned\n");
             ::abort();
-        }
-        catch (...) {
+        } catch (...) {
             fprintf(stderr,
                     "terminate_handler unexpectedly threw an exception\n");
             ::abort();
@@ -65,8 +69,7 @@ namespace std {
             fprintf(stderr,
                     "terminate_handler unexpectedly returned\n");
             ::abort();
-        }
-        catch (...) {
+        } catch (...) {
             fprintf(stderr,
                     "terminate_handler unexpectedly threw an exception\n");
             ::abort();
@@ -80,7 +83,6 @@ namespace std {
     bool uncaught_exception() noexcept {
         return std::uncaught_exceptions() > 0;
     }
+
 }
 
-
-#pragma clang diagnostic pop

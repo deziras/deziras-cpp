@@ -3,7 +3,10 @@
 //
 
 #include <typeinfo>
+#include <cstdio>
+
+
 int main() {
-    auto &&t = typeid(1);
+
 }
 
