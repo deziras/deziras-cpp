@@ -10,9 +10,7 @@ namespace std {
 
         bad_alloc(bad_alloc const &) noexcept = default;
 
-        virtual char const *what() const noexcept override {
-            return "std::bad_alloc";
-        }
+        virtual char const *what() const noexcept override;
     };
 
     class bad_array_new_length : public bad_alloc {
@@ -23,9 +21,7 @@ namespace std {
 
         bad_array_new_length(bad_array_new_length &&) = default;
 
-        virtual char const *what() const noexcept override {
-            return "std::bad_array_new_length";
-        }
+        virtual char const *what() const noexcept override;
     };
 
     struct nothrow_t {
@@ -45,21 +41,46 @@ namespace std {
 
 }
 
-void *operator new(size_t);
+void *operator new(std::size_t);
 
-void *operator new[](size_t);
+void *operator new(std::size_t size, std::align_val_t alignment);
+
+void *operator new(std::size_t, std::nothrow_t const &) noexcept;
+
+void *operator new(std::size_t size, std::align_val_t alignment, std::nothrow_t const &) noexcept;
+
+inline
+void *operator new(std::size_t, void *ptr) {
+    return ptr;
+}
+
 
 void operator delete(void *);
 
-void operator delete[](void *);
-
-
-void *operator new(size_t, std::nothrow_t const &) noexcept;
-
-void *operator new[](size_t, std::nothrow_t const &) noexcept;
-
 void operator delete(void *, std::nothrow_t const &) noexcept;
 
+inline
+void operator delete(void *, void *) noexcept {}
+
+
+void *operator new[](std::size_t);
+
+void *operator new[](std::size_t size, std::align_val_t alignment);
+
+void *operator new[](std::size_t, std::nothrow_t const &) noexcept;
+
+void *operator new[](std::size_t size, std::align_val_t alignment, std::nothrow_t const &) noexcept;
+
+inline
+void *operator new[](std::size_t, void *ptr) {
+    return ptr;
+}
+
+void operator delete[](void *);
+
 void operator delete[](void *, std::nothrow_t const &) noexcept;
+
+inline
+void operator delete[](void *, void *) noexcept {}
 
 

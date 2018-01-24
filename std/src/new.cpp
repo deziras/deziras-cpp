@@ -3,7 +3,6 @@
 //
 
 #include <new>
-#include <cstdlib>
 
 using namespace std;
 
@@ -11,6 +10,14 @@ static std::new_handler newHandler = nullptr;
 
 namespace std {
     const nothrow_t nothrow = nothrow_t{};
+
+    char const *bad_alloc::what() const {
+        return "std::bad_alloc";
+    }
+
+    char const* bad_array_new_length::what() const {
+        return "std::bad_array_new_length";
+    }
 
     std::new_handler get_new_handler() noexcept {
         return newHandler;
@@ -42,8 +49,7 @@ void *operator new(size_t size, std::nothrow_t const &) noexcept {
     void *p = nullptr;
     try {
         p = ::operator new(size);
-    }
-    catch (...) {}
+    } catch (...) {}
     return p;
 }
 
@@ -51,7 +57,6 @@ void *operator new(size_t size, std::nothrow_t const &) noexcept {
 void *operator new[](size_t size) {
     return ::operator new(size);
 }
-
 
 void *operator new[](size_t size, std::nothrow_t const &) noexcept {
     void *p = nullptr;
