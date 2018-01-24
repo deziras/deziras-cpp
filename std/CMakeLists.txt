@@ -22,5 +22,5 @@ add_library(deziras-c++
         src/typeinfo.cpp
         include/cstring
         include/unwind.h
-        include/iostream src/exception_ptr.cpp)
+        include/iostream src/exception_ptr.cpp include/csetjmp)
 target_link_libraries(deziras-c++)
