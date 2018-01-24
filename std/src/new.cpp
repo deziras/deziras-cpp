@@ -5,9 +5,6 @@
 #include <new>
 #include <cstdlib>
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "ClangTidyInspection"
-
 using namespace std;
 
 static std::new_handler newHandler = nullptr;
@@ -42,7 +39,7 @@ void *operator new(std::size_t size) {
 
 
 void *operator new(size_t size, std::nothrow_t const &) noexcept {
-    void *p = 0;
+    void *p = nullptr;
     try {
         p = ::operator new(size);
     }
@@ -57,7 +54,7 @@ void *operator new[](size_t size) {
 
 
 void *operator new[](size_t size, std::nothrow_t const &) noexcept {
-    void *p = 0;
+    void *p = nullptr;
 
     try {
         p = ::operator new[](size);
@@ -68,7 +65,7 @@ void *operator new[](size_t size, std::nothrow_t const &) noexcept {
 }
 
 
-void operator delete(void *ptr) noexcept {
+void operator delete(void *ptr) {
     if (ptr)
         ::free(ptr);
 }
@@ -81,7 +78,7 @@ void operator delete(void *ptr, size_t) noexcept {
     ::operator delete(ptr);
 }
 
-void operator delete[](void *ptr) noexcept {
+void operator delete[](void *ptr) {
     ::operator delete(ptr);
 }
 
@@ -97,116 +94,73 @@ void operator delete[](void *ptr, size_t) noexcept {
 void *operator new(std::size_t size, std::align_val_t alignment) {
     if (size == 0)
         size = 1;
-    if (static_cast
-                <size_t>(alignment)
-        < sizeof(void *))
+    if (static_cast<size_t>(alignment) < sizeof(void *))
         alignment = std::align_val_t(sizeof(void *));
     void *p;
-#if defined(_LIBCPP_MSVCRT_LIKE)
-    while ((p = _aligned_malloc(size, static_cast<size_t>(alignment))) == nullptr)
-#else
-    while (::posix_memalign(&p, static_cast<size_t>(alignment), size) != 0)
-#endif
-    {
-// If posix_memalign fails and there is a new_handler,
-// call it to try free up memory.
+    while (::posix_memalign(&p, static_cast<size_t>(alignment), size) != 0) {
         std::new_handler nh = std::get_new_handler();
         if (nh)
             nh();
-
         else {
-#ifndef _LIBCPP_NO_EXCEPTIONS
-            throw
-
-                    std::bad_alloc();
-
-#else
-            p = nullptr; // posix_memalign doesn't initialize 'p' on failure
-                        break;
-#endif
+            throw std::bad_alloc();
         }
     }
-    return
-            p;
-}
-
-
-void *
-operator new(size_t size, std::align_val_t alignment, std::nothrow_t const &) noexcept {
-    void *p = 0;
-#ifndef _LIBCPP_NO_EXCEPTIONS
-    try {
-#endif  // _LIBCPP_NO_EXCEPTIONS
-        p = ::operator new(size, alignment);
-#ifndef _LIBCPP_NO_EXCEPTIONS
-    }
-    catch (...) {
-    }
-#endif  // _LIBCPP_NO_EXCEPTIONS
     return p;
 }
 
 
-void *
-operator new[](size_t size, std::align_val_t alignment) {
+void *operator new(size_t size, std::align_val_t alignment, std::nothrow_t const &) noexcept {
+    void *p = nullptr;
+    try {
+        p = ::operator new(size, alignment);
+    }
+    catch (...) {
+    }
+    return p;
+}
+
+
+void *operator new[](size_t size, std::align_val_t alignment) {
     return ::operator new(size, alignment);
 }
 
 
-void *
-operator new[](size_t size, std::align_val_t alignment, std::nothrow_t const &) noexcept {
-    void *p = 0;
-#ifndef _LIBCPP_NO_EXCEPTIONS
+void *operator new[](size_t size, std::align_val_t alignment, std::nothrow_t const &) noexcept {
+    void *p = nullptr;
     try {
-#endif  // _LIBCPP_NO_EXCEPTIONS
         p = ::operator new[](size, alignment);
-#ifndef _LIBCPP_NO_EXCEPTIONS
     }
     catch (...) {
     }
-#endif  // _LIBCPP_NO_EXCEPTIONS
     return p;
 }
 
 
-void
-operator delete(void *ptr, std::align_val_t) noexcept {
-    if (ptr)
-#if defined(_LIBCPP_MSVCRT_LIKE)
-        ::_aligned_free(ptr);
-#else
-        ::free(ptr);
-#endif
+void operator delete(void *ptr, std::align_val_t) noexcept {
+    if (ptr)::free(ptr);
 }
 
 
-void
-operator delete(void *ptr, std::align_val_t alignment, std::nothrow_t const &) noexcept {
+void operator delete(void *ptr, std::align_val_t alignment, std::nothrow_t const &) noexcept {
     ::operator delete(ptr, alignment);
 }
 
 
-void
-operator delete(void *ptr, size_t, std::align_val_t alignment) noexcept {
+void operator delete(void *ptr, size_t, std::align_val_t alignment) noexcept {
     ::operator delete(ptr, alignment);
 }
 
 
-void
-operator delete[](void *ptr, std::align_val_t alignment) noexcept {
+void operator delete[](void *ptr, std::align_val_t alignment) noexcept {
     ::operator delete(ptr, alignment);
 }
 
 
-void
-operator delete[](void *ptr, std::align_val_t alignment, std::nothrow_t const &) noexcept {
+void operator delete[](void *ptr, std::align_val_t alignment, std::nothrow_t const &) noexcept {
     ::operator delete[](ptr, alignment);
 }
 
 
-void
-operator delete[](void *ptr, size_t, std::align_val_t alignment) noexcept {
+void operator delete[](void *ptr, size_t, std::align_val_t alignment) noexcept {
     ::operator delete[](ptr, alignment);
 }
-
-#pragma clang diagnostic pop

@@ -51,6 +51,4 @@ namespace std {
     using ::div;
     using ::ldiv;
     using ::lldiv;
-
-
 }
