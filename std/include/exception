@@ -1,15 +1,16 @@
 #pragma once
 
 #include <cstdlib>
+#include "cstdio"
 
 namespace std {
     class exception {
     public:
-        exception() noexcept = default;
+        exception() noexcept;
 
-        exception(exception const &) noexcept = default;
+        exception(exception const &) noexcept;
 
-        exception &operator=(exception const &) noexcept = default;
+        exception &operator=(exception const &) noexcept;
 
         virtual ~exception();
 
@@ -18,16 +19,16 @@ namespace std {
 
     class bad_exception : public exception {
     public:
-        bad_exception() noexcept = default;
+        bad_exception() noexcept;
 
-        bad_exception(bad_exception const &) noexcept = default;
+        bad_exception(bad_exception const &) noexcept;
 
-        bad_exception &operator=(bad_exception const &) noexcept = default;
+        bad_exception &operator=(bad_exception const &) noexcept;
+
+        virtual ~bad_exception();
 
         virtual char const *what() const noexcept override;
     };
-
-    //todo: class nested_exception;
 
     using unexpected_handler = void (*)();
 
@@ -37,7 +38,6 @@ namespace std {
 
     [[noreturn]]
     void unexpected();
-
 
     using terminate_handler  = void (*)();
 
@@ -52,4 +52,70 @@ namespace std {
 
     bool uncaught_exception() noexcept;
 
+    class exception_ptr;
+
+    exception_ptr current_exception() noexcept;
+
+    [[noreturn]]
+    void rethrow_exception(exception_ptr);
+
+
+    class exception_ptr {
+        void *__ptr_;
+    public:
+        exception_ptr() noexcept;
+
+        exception_ptr(exception_ptr const &) noexcept;
+
+        //exception_ptr(nullptr_t) noexcept;
+
+        exception_ptr &operator=(exception_ptr const &) noexcept;
+
+        ~exception_ptr() noexcept;
+
+        inline operator bool() const noexcept { return __ptr_ != nullptr; }
+
+        friend inline
+        bool operator==(exception_ptr const &__x, exception_ptr const &__y) noexcept {
+            return __x.__ptr_ == __y.__ptr_;
+        }
+
+        friend inline
+        bool operator!=(exception_ptr const &__x, exception_ptr const &__y) noexcept {
+            return !(__x == __y);
+        }
+
+        friend exception_ptr current_exception() noexcept;
+
+        friend void rethrow_exception(exception_ptr);
+    };
+
+    template<typename E>
+    exception_ptr make_exception_ptr(E e) noexcept {
+        try {
+            throw e;
+        } catch (...) {
+            return current_exception();
+        }
+    }
+
+    class nested_exception {
+        exception_ptr __ptr_;
+    public:
+        nested_exception() noexcept;
+
+        virtual ~nested_exception() noexcept;
+
+        [[noreturn]]
+        void rethrow_nested() const;
+
+        exception_ptr nested_ptr() const noexcept { return __ptr_; }
+    };
+
+    template<typename T>
+    [[noreturn]]
+    void throw_with_nested(T &&t); //todo
+
+    template<class E>
+    void rethrow_if_nested(E const &e); //todo
 }

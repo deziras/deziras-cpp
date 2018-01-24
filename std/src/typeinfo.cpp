@@ -9,7 +9,11 @@ namespace std {
     type_info::~type_info() = default;
 
     const char *bad_cast::what() const noexcept {
-        return exception::what();
+        return "std::bad_cast";
+    }
+
+    char const *bad_typeid::what() const noexcept {
+        return "std::bad_typeid";
     }
 }
 

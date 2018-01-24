@@ -5,8 +5,13 @@
 #include <typeinfo>
 #include <cstdio>
 
+class C {
+    virtual void f() {}
+};
+
+class D : public virtual C {
+};
 
 int main() {
-
 }
 

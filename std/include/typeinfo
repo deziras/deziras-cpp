@@ -46,12 +46,22 @@ namespace std {
     public:
         bad_cast() noexcept = default;
 
-        bad_cast(const bad_cast &) noexcept = default;
+        bad_cast(bad_cast const &) noexcept = default;
 
-        bad_cast &operator=(const bad_cast &) noexcept = default;
+        bad_cast &operator=(bad_cast const &) noexcept = default;
 
         const char *what() const noexcept override;
     };
 
+    class bad_typeid : public exception {
+    public:
+        bad_typeid() noexcept = default;
+
+        bad_typeid(bad_typeid const &) noexcept = default;
+
+        bad_typeid &operator=(bad_typeid const &) noexcept = default;
+
+        char const *what() const noexcept override;
+    };
 }
 
